@@ -1,1 +1,1 @@
-# Algoritmi
+Probleme de algoritmica rezolvate
