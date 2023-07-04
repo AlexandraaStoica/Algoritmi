@@ -1,0 +1,73 @@
+#include<stdio.h>
+
+//*lista muchii* -- daca este sau nu drum
+//Drum in graf = o succesiune de noduri cu proprietatea ca pentru orice 1<=i<k, (xi,xi+1) este arc in G
+
+int n,m;
+
+void preluare_graf(int tabel[7][2])
+{
+	for (int i = 0; i < m; i++)
+		scanf("%d %d", &tabel[i][0], &tabel[i][1]);
+	/*for (int i = 0; i < n; i++)
+	{
+		printf("%d %d", tabel[i][0], tabel[i][1]);
+		printf("\n");
+	}*/
+}
+
+void tabelToMatrice(int dim, int mat[6][6], int tabel[][2])
+{
+	int j, i;
+	//initializam matricea cu 0
+	dim=n;
+	for (i = 0; i < dim; i++)
+		for (j = 0; j < dim; j++)
+			mat[i][j] = 0;
+
+	//matricea de adiacenta
+	for (i = 0; i < m; i++)
+	{
+		mat[tabel[i][0] - 1][tabel[i][1] - 1] = 1;
+		mat[tabel[i][1] - 1][tabel[i][0] - 1] = 1;
+	}
+}
+
+void mat_drumuri(int n)
+{
+	int mat[6][6], i, j, k;
+	for (k = 1; k <= n; k++)
+		for (i = 1; i <= n; i++)
+			for (j = 1; j <= n; j++)
+				if (i != j && mat[i][j] == 0 && mat[i][k] == 1 && mat[k][j] == 1)
+					mat[i][j] = 1;
+}
+
+void afisare_matDrumuri(int mat[6][6])
+{
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+			printf("%d", mat[i][j]);
+		printf("\n");
+	}
+}
+
+
+int main()
+{
+	int tabel[7][2], mat[6][6], dim;
+
+	printf("Dati numarul de muchii:\n");
+	scanf("%d", &m); 
+	printf("Dati numarul de noduri:\n");
+	scanf("%d", &n);
+
+	preluare_graf(tabel);
+	dim = n;
+	tabelToMatrice(dim, mat, tabel);
+	//mat_drumuri(n);
+	afisare_matDrumuri(mat);
+
+	return 0;
+}
